@@ -11,7 +11,15 @@ func main() {
 	// In Go (Golang), the %g format verb is used to format floating-point numbers.
 	// It automatically chooses between the %e (scientific notation) and %f
 	// (decimal notation) formats,
-	fmt.Printf("Boiling point = %gF or %gC", f, c)
+	fmt.Printf("Boiling point = %g°F or %g°C", f, c)
 	// output
 	// Boiling point = 212°F or 100°C
+
+	const freezingF, boilingF = 32.0, 212.0 // it has const decl mean there will be dublicate inside function
+	fmt.Printf("%g°F = %g°C\n", freezingF, fToC(freezingF))
+	fmt.Printf("%g°F = %g°C\n", boilingF, fToC(boilingF))
+}
+
+func fToC(f float64) float64 {
+	return (f - 32) * 5 / 9
 }
