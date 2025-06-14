@@ -1,8 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+    "mylearning/types"
+)
 
 func main() {
 
 	fmt.Println("Hello, world!")
+	c := types.CToF(100)
 }
