@@ -2,11 +2,13 @@ package main
 
 import (
 	"fmt"
-    "mylearning/types"
+
+	"mylearning/tempconv"
 )
 
 func main() {
 
 	fmt.Println("Hello, world!")
-	c := types.CToF(100)
+	tempconv.PrintValue()
+	fmt.Println(tempconv.BoilingC)
 }
