@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 const boilingF = 212.0 // boilingF is package level declaration (as is main)
 
