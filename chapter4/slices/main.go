@@ -32,6 +32,32 @@ func main() {
 	// w = nil 		// len(s) == 0, s == nil
 	// w = []int(nil)  // len(s) == 0, s == nil
 	// w = []int{}     // len(s) == 0, s != nil
+	var q, r []int
+	for i := 0; i < 10; i++ {
+		r = appendInt(q, i)
+		fmt.Printf("%d cap=%d\t%v\n", i, cap(r), r)
+		q = r
+		/*
+			0 cap=1    [0]
+			1 cap=2    [0 1]
+			2 cap=4    [0 1 2]
+			3 cap=4    [0 1 2 3]
+			4 cap=8    [0 1 2 3 4]
+			5 cap=8    [0 1 2 3 4 5]
+			6 cap=8    [0 1 2 3 4 5 6]
+			7 cap=8    [0 1 2 3 4 5 6 7]
+			8 cap=16   [0 1 2 3 4 5 6 7 8]
+			9 cap=16   [0 1 2 3 4 5 6 7 8 9]
+		*/
+	}
+}
+
+func appendInt2(x []int, y ...int) []int {
+	var z []int
+	zlen := len(x) + len(y)
+	// ...expand z to at least zlen..
+	copy(z[len(x):], y)
+	return z
 }
 
 func appendInt(x []int, y int) []int {
