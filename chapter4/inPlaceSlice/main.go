@@ -19,6 +19,25 @@ func main() {
 	fmt.Println(removeAdjacent(slices))
 	utf8Data := []byte("Hello,   \t  \nWorld!\n\n")
 	fmt.Printf("%q\n", squashSpaces(utf8Data))
+	data2 := []byte("Hello, 世界")
+	fmt.Println(modifiedReverese(data2))
+}
+
+func modifiedReverese(slice []byte) []byte {
+	// Step: 1 Decode runes and record their byte ranges
+	var runes [][]byte
+	for i := 0; i < len(slice); {
+		_, size := utf8.DecodeRune(slice[i:])
+		runes = append(runes, slice[i:i+size])
+		i += size
+	}
+	// Step: 2 Copy reversed runed back to the original slice
+	pos := 0
+	for i := len(runes) - 1; i >= 0; i-- {
+		copy(slice[pos:], runes[i])
+		pos += len(runes[i])
+	}
+	return slice
 }
 
 func noneEmpty(strings []string) []string {
