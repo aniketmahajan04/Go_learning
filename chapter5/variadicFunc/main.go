@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
 )
 
 func sum(vals ...int) int {
@@ -31,6 +32,8 @@ func main() {
 
 	linenum, name := 12, "count"
 	errorf(linenum, "undefined: %s", name) // Line 12: undefined: count
+
+	fmt.Println(stringJoinf("Aniket", "Mahajan"))
 }
 
 func minf(vals ...int) int {
@@ -58,6 +61,17 @@ func maxf(vals ...int) int {
 		}
 	}
 	return max
+}
+
+func stringJoinf(strs ...string) string {
+	// joinedStr := strings[0]
+	// for _, str := range strings[1:] {
+	// 	joinedStr += str
+	// }
+
+	// return joinedStr
+
+	return strings.Join(strs, " ")
 }
 
 func errorf(linenum int, format string, args ...interface{}) {
