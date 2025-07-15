@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"sort"
 )
 
@@ -36,6 +37,15 @@ func squares() func() int {
 		// updating the value of it
 		return x * x
 	}
+}
+
+func crawl(url string) []string {
+	fmt.Println(url)
+	list, err := links.Extract(url)
+	if err != nil {
+		log.Print(err)
+	}
+	return list
 }
 
 func main() {
