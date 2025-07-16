@@ -2,7 +2,11 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"log"
+	"net/http"
+	"os"
+	"path"
 	"time"
 )
 
@@ -52,4 +56,36 @@ func trace(msg string) func() {
 	start := time.Now()
 	log.Printf("enter %s", msg)
 	return func() { log.Printf("exit %s (%s)", msg, time.Since(start)) }
+}
+
+func fetch(url string) (filename string, n int64, err error) {
+	resp, err := http.Get(url)
+	if err != nil {
+		return "", 0, err
+	}
+	defer resp.Body.Close()
+	local := path.Base(resp.Request.URL.Path)
+	if local == "/" {
+		local = "index.html"
+	}
+	f, err := os.Create(local)
+	if err != nil {
+		return "", 0, err
+	}
+	n, err = io.Copy(f, resp.Body)
+	// Close file, ut prefer error from Copy, if any.
+
+	// converting this in defer function to close() open file
+	// if closeErr := f.Close(); err == nil {
+	// 	err = closeErr
+	// }
+
+	defer func() {
+		closeErr := f.Close()
+		if err == nil {
+			err = closeErr
+		}
+	}()
+
+	return local, n, err
 }
